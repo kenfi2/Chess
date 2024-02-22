@@ -1,0 +1,28 @@
+
+# Visual Studio
+*.MAP
+*.user
+*.APS
+*.opensdf
+*.sdf
+*.suo
+*.obj
+*.db
+*.opendb
+*.pdb
+*.exe
+*.vcxproj
+*.sln
+*.vcxproj.filters
+
+ipch/
+Beta Release/
+x64/
+Beta Release/
+Debug/
+Release/
+.vscode/
+.vs/
+
+# Others
+.vscode
