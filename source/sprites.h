@@ -26,6 +26,7 @@ public:
 private:
 	int m_width = 0;
 	int m_height = 0;
+
 	std::vector<uint8_t> m_data;
 	std::string m_name;
 };
@@ -46,9 +47,10 @@ public:
 
 private:
 	GLuint m_id;
-	std::string m_name;
 	int m_width = 0;
 	int m_height = 0;
+
+	std::string m_name;
 	std::vector<bool> m_area;
 };
 

@@ -14,7 +14,7 @@ public:
 		BIG_CASTLING_MOVE
 	};
 
-	PieceMovement() : m_color(0), m_tile(nullptr), m_target(nullptr), m_type(DEFAULT_MOVE) { }
+	PieceMovement() = default;
 	~PieceMovement();
 
 	PieceMovement(const PieceMovement&) = delete;
@@ -37,12 +37,14 @@ public:
 	void SetType(uint8_t type) { m_type = type; }
 
 private:
-	int m_color;
-	Tile* m_tile;
-	Piece* m_target;
-	uint8_t m_type;
+	int m_color = 0;
 
+	uint8_t m_type = DEFAULT_MOVE;
 	bool m_ignoreThreat = false;
+
+	Tile* m_tile = nullptr;
+	Piece* m_target = nullptr;
+
 	void SetTile(Tile* tile);
 };
 

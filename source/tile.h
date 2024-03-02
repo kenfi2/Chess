@@ -24,11 +24,12 @@ public:
 	void ToDraw(const wxColor& color);
 
 private:
+	Piece* m_piece = nullptr;
+	wxColor* m_toDraw = nullptr;
+
 	wxPoint m_point;
 	std::string m_algebraicPosition;
-	Piece* m_piece = nullptr;
 	std::multiset<int> m_threats;
-	wxColor* m_toDraw = nullptr;
 
 	friend class Tiles;
 };

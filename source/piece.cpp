@@ -4,15 +4,13 @@
 #include "game.h"
 #include "player.h"
 
-Piece::Piece(GameCanvas* canvas, Texture* texture, int color) :
-    m_id(0),
-    m_canvas(canvas),
-    m_drawPoint(nullptr),
-    m_texture(texture),
-    m_color(color)
+Piece::Piece(GameCanvas* canvas, Texture* texture, int color)
 {
     static int autoId = 0;
     m_id = autoId++;
+    m_canvas = canvas;
+    m_texture = texture;
+    m_color = color;
 }
 
 Piece::~Piece()
