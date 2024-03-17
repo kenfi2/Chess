@@ -61,6 +61,15 @@ public:
 	virtual int GetWeight() const = 0;
 
 protected:
+	std::vector<PieceMovement*> m_movements;
+	std::unordered_set<Tile*> m_kingDefender;
+
+	GameCanvas* m_canvas = nullptr;
+	wxPoint* m_drawPoint = nullptr;
+	Texture* m_texture = nullptr;
+	Tile* m_tile = nullptr;
+	Player* m_player = nullptr;
+
 	int m_id = 0;
 	int m_color = 0;
 	int m_movementCount = 0;
@@ -69,15 +78,6 @@ protected:
 	bool m_calculed = false;
 	bool m_release = false;
 	bool m_hovered = false;
-
-	GameCanvas* m_canvas = nullptr;
-	wxPoint* m_drawPoint = nullptr;
-	Texture* m_texture = nullptr;
-	Tile* m_tile = nullptr;
-	Player* m_player = nullptr;
-
-	std::vector<PieceMovement*> m_movements;
-	std::unordered_set<Tile*> m_kingDefender;
 };
 
 class Pawn : public Piece

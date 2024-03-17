@@ -37,13 +37,13 @@ public:
 	void SetType(uint8_t type) { m_type = type; }
 
 private:
+	Tile* m_tile = nullptr;
+	Piece* m_target = nullptr;
+
 	int m_color = 0;
 
 	uint8_t m_type = DEFAULT_MOVE;
 	bool m_ignoreThreat = false;
-
-	Tile* m_tile = nullptr;
-	Piece* m_target = nullptr;
 
 	void SetTile(Tile* tile);
 };

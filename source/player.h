@@ -46,17 +46,17 @@ public:
 	void ClearMovementCount() { m_movementCount = 0; }
 
 private:
-	int m_attackerCount = 0;
-	int m_movementCount = 0;
-
-	bool m_check = false;
+	std::vector<Piece*> m_pieces;
+	std::vector<Piece*> m_capturedPieces;
+	std::unordered_set<Tile*> m_targetTiles;
 
 	Player* m_opponent = nullptr;
 	Piece* m_attacker = nullptr;
 
-	std::vector<Piece*> m_pieces;
-	std::vector<Piece*> m_capturedPieces;
-	std::unordered_set<Tile*> m_targetTiles;
+	int m_attackerCount = 0;
+	int m_movementCount = 0;
+
+	bool m_check = false;
 };
 
 #endif
