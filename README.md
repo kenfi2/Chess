@@ -25,19 +25,11 @@ Todos os arquivos de biblioteca estão incluídos em `/opt/android-ndk`. Para co
   ```
 3. Adicione $(LOCAL_ANDROID_INCLUDE) antes de todos os caminhos que contêm /opt/android-ndk. Exemplo, em vez de:
   ```
-  /opt/android-ndk/external/$(TARGET_ARCH_ABI)/include
-  ```
-  >
-  ```
-  $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/include
+  /opt/android-ndk/external/$(TARGET_ARCH_ABI)/include > $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/include
   ```
 4. Também é preciso linkar manualmente as libs. Exemplo:
   ```
-  -lluajit-5.1
-  ```
-  >
-  ```
-  $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/lib/libluajit-5.1.a
+  -lluajit-5.1 > $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/lib/libluajit-5.1.a
   ```
 5. Pode ocorrer que o sistema não consiga identificar o libpng, então tente libpng16
 
