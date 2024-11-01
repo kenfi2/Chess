@@ -27,6 +27,7 @@ Todos os arquivos de biblioteca estão incluídos em `/opt/android-ndk`. Para co
   ```
   /opt/android-ndk/external/$(TARGET_ARCH_ABI)/include
   ```
+  >
   ```
   $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/include
   ```
@@ -34,6 +35,7 @@ Todos os arquivos de biblioteca estão incluídos em `/opt/android-ndk`. Para co
   ```
   -lluajit-5.1
   ```
+  >
   ```
   $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/lib/libluajit-5.1.a
   ```
