@@ -1,47 +1,27 @@
-# Compilando o APK no Windows com Android Studio
+# Compiling glaclient on Android Studio
 
-Este guia fornece instruções para compilar o APK do projeto **Grand Line Adventures** usando o Android Studio no Windows.
+## Environment configuration
 
-## Configuração do Ambiente
+### 1. Adjust SDK path
 
-### 1. Ajuste os caminhos do SDK e NDK
+Open the file `android/com.grandlineadventures.opclient/local.properties`.
 
-#### Atualizando `local.properties`
+Change `sdk.dir` to the folder where the Android SDK is installed. Example: ```sdk.dir=E:\\Android```
+### 2. Configuring `Android.mk`
 
-Abra o arquivo `local.properties` localizado em: android/com.grandlineadventures.opclient/local.properties
+## 1. **Downaloding dependencies from Docker**.
+1. In the WSL context in the `luna/scripts/compile` folder, run the command `make docker-term-android PROJECT=glacient`.
+2. In the Linux context run the command: ```cd /opt/android-ndk/ && tar -cvf external.tar.gz ./external```
+3. After that, in another WSL context, run the ```docker ps``` command, get the CONTAINER ID of the image where you ran the last command and run this command ```docker cp <container_id>:/opt/android-ndk/ /mnt/c/your/dest/here```
+4. Now you can close the container and extract the copied files.
+## 2. **Finally, configuring the file**
+1. Open the file `android/com.grandlineadventures.opclient/app/jni/src/Android.mk`.
+2. Create a variable to specify the path to the directory where you extract the ndk files. Example: ```LOCAL_ANDROID_INCLUDE := C:/your/dest/here```
+4. Add the variable before all places using /opt/android-ndk. Example: ```$(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/include```
+5. You'll also need link the ndk libraries with their full paths. ```-lluajit-5.1``` > ```$(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/lib/libluajit-5.1.a```
+6. Include the following command in the file ```LOCAL_SHORT_COMMANDS := true``` and ```APP_SHORT_COMMANDS := true```
 
-Altere a linha `sdk.dir` para o diretório onde você instalou o SDK do Android. Exemplo: sdk.dir=C:\Caminho\Para\Seu\SDK
+### 3. Compiling APK
+Before compile you'll need run this command in `luna/scripts/compile` ```make makepkg PROJECT=glaclient FULL_APK=true```
 
-### 2. Configuração do arquivo `Android.mk`
-
-O arquivo `Android.mk` está localizado em: android/com.grandlineadventures.opclient/app/jni/src/Android.mk
-
-Todos os arquivos de biblioteca estão incluídos em `/opt/android-ndk` na image do Docker. Para configurar corretamente:
-
-1. **Baixe a pasta do NDK** do Docker e coloque-a em uma pasta local no seu disco.
-2. Crie uma variável chamada `LOCAL_ANDROID_INCLUDE` apontando para este diretório local. Eexemplo:
-  ```
-  LOCAL_ANDROID_INCLUDE := C:\\Caminho\\Para\\Seu\\NDK
-  ```
-3. Adicione $(LOCAL_ANDROID_INCLUDE) antes de todos os caminhos que contêm /opt/android-ndk. Exemplo:
-  ```
-  /opt/android-ndk/external/$(TARGET_ARCH_ABI)/include > $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/include
-  ```
-4. Também é preciso linkar manualmente as libs que precisarem (Não são todas, o Android Studio irá alertar quais estão faltando). Exemplo:
-  ```
-  -lluajit-5.1 > $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/lib/libluajit-5.1.a
-  -lpng > $(LOCAL_ANDROID_INCLUDE)/opt/android-ndk/external/$(TARGET_ARCH_ABI)/lib/libpng16.a
-  ```
-
-5. Inclua os seguintes comandos também para evitar alguns erros de compilação:
-  ```
-  LOCAL_SHORT_COMMANDS := true
-  APP_SHORT_COMMANDS := true
-  ```
-
-### 3. Compilação APK
-Antes de dar Run você precisa ajustar a paste assets no seu app, então rode esse comando:
-```
-make makepkg PROJECT=glaclient FULL_APK=true
-```
-Recomendo, manualmente, no script do makepkg colocar uma forma de ignorar o encrypt dos arquivos também.
+Don't forget to set to ignore encrypt in makepkg.lua
